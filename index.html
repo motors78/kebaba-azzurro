@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kebab Azzurro Group — Napoli</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0D1417; --paper:#F3EFE6; --azzurro:#1E88C7; --grill:#C0432C;
+  --fritti:#D9A441; --insalate:#6E8F4E; --line:rgba(243,239,230,.16);
+  --bg:var(--ink); --fg:var(--paper); --card:#141D22;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+:root[data-theme="light"]{--bg:#F3EFE6;--fg:#0D1417;--card:#fff;--line:rgba(13,20,23,.14);}
+*{box-sizing:border-box;} html{scroll-padding-top:64px;}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:'Work Sans',system-ui,sans-serif;line-height:1.55;}
+h1,h2,h3{font-family:'Bricolage Grotesque',system-ui,sans-serif;margin:0;color:var(--fg);}
+.wrap{max-width:980px;margin:0 auto;padding:0 22px;}
+a{color:inherit;}
+@media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important;} }
+
+header{position:sticky;top:0;z-index:20;background:var(--ink);border-bottom:1px solid var(--line);
+  padding-top:env(safe-area-inset-top,0px);}
+header .wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;}
+.mark{font-family:'Bricolage Grotesque';font-weight:800;color:#F3EFE6;font-size:1.15rem;}
+.mark small{display:block;font-family:'Work Sans';font-weight:500;font-size:.62rem;letter-spacing:.08em;opacity:.6;}
+nav{display:flex;gap:20px;}
+nav a{font-size:.85rem;color:#cfd6d2;text-decoration:none;}
+a:focus-visible,button:focus-visible{outline:3px solid var(--azzurro);outline-offset:2px;}
+
+.announce{background:var(--fritti);color:#231705;text-align:center;font-size:.78rem;font-weight:600;padding:7px 10px;}
+
+.hero{background:var(--ink);color:#F3EFE6;padding:70px 0 0;overflow:hidden;}
+.hero .wrap{position:relative;}
+.hero-num{font-size:.8rem;letter-spacing:.1em;color:var(--azzurro);font-weight:600;margin-bottom:14px;}
+.hero h1{font-size:clamp(2.3rem,7vw,4.4rem);font-weight:800;line-height:1.02;max-width:12ch;}
+.hero h1 em{font-style:normal;color:var(--azzurro);}
+.hero p{max-width:46ch;color:#c7ccc9;font-size:1.05rem;margin-top:18px;}
+.stats{display:flex;gap:34px;margin:34px 0 0;flex-wrap:wrap;}
+.stat b{display:block;font-family:'Bricolage Grotesque';font-size:1.9rem;font-weight:800;}
+.stat span{font-size:.72rem;letter-spacing:.05em;opacity:.65;}
+
+.ticker{margin-top:46px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  overflow:hidden;white-space:nowrap;background:#0A1013;}
+.ticker-track{display:inline-block;padding:13px 0;animation:scroll 22s linear infinite;font-family:'Bricolage Grotesque';font-weight:700;font-size:.95rem;letter-spacing:.02em;}
+.ticker-track span{margin:0 26px;color:#9aa6a1;}
+.ticker-track span b{color:#F3EFE6;}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+.division{padding:58px 0;border-bottom:1px solid var(--line);}
+.division-head{display:flex;align-items:baseline;gap:16px;margin-bottom:26px;flex-wrap:wrap;}
+.division-head .n{font-family:'Bricolage Grotesque';font-weight:800;font-size:2.1rem;color:var(--acc);}
+.division-head h2{font-size:1.6rem;font-weight:800;}
+.division-head .tag{font-size:.72rem;letter-spacing:.06em;padding:4px 11px;border:1px solid var(--acc);color:var(--acc);border-radius:20px;}
+.items{display:grid;grid-template-columns:1fr 1fr;gap:0 30px;}
+@media(max-width:600px){.items{grid-template-columns:1fr;}}
+.item{display:flex;justify-content:space-between;gap:14px;padding:12px 0;border-bottom:1px dashed var(--line);}
+.item h4{margin:0 0 2px;font-size:.98rem;font-weight:600;font-family:'Work Sans';}
+.item p{margin:0;font-size:.8rem;opacity:.6;}
+.item .p{font-weight:700;color:var(--acc);white-space:nowrap;}
+
+#doner{--acc:var(--azzurro);}
+#grill{--acc:var(--grill);}
+#fritti{--acc:var(--fritti);}
+#insalate{--acc:var(--insalate);}
+
+#sedi{padding:58px 0;border-bottom:1px solid var(--line);}
+.sedi-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px;}
+@media(max-width:600px){.sedi-grid{grid-template-columns:1fr;}}
+.sede{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:24px;}
+.sede .id{font-size:.72rem;letter-spacing:.08em;color:var(--azzurro);font-weight:700;margin-bottom:6px;}
+.sede h3{font-size:1.2rem;margin-bottom:8px;}
+.sede .hh{font-size:.82rem;opacity:.65;margin:10px 0 16px;}
+.sede a{font-size:.85rem;color:var(--azzurro);font-weight:600;text-decoration:none;}
+
+#recensioni{padding:58px 0;}
+.rev{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:20px 22px;margin-top:14px;}
+.rev-top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;}
+.badge{font-size:.68rem;background:rgba(110,143,78,.18);color:var(--insalate);padding:3px 10px;border-radius:20px;font-weight:700;letter-spacing:.03em;}
+.stars{color:var(--fritti);letter-spacing:2px;}
+.rev p{margin:8px 0 0;font-size:.92rem;opacity:.9;}
+
+.rform{margin-top:30px;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:24px;}
+.rform label{display:block;font-size:.8rem;margin:14px 0 5px;opacity:.75;}
+.rform input,.rform textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--fg);font-family:inherit;font-size:.95rem;}
+.rform textarea{min-height:80px;resize:vertical;}
+.rform button{margin-top:16px;background:var(--azzurro);color:#fff;border:none;padding:12px 24px;border-radius:3px;font-weight:700;cursor:pointer;}
+.note{font-size:.78rem;opacity:.6;margin-top:10px;}
+.confirm{display:none;margin-top:12px;color:var(--insalate);font-weight:700;font-size:.88rem;}
+
+footer{padding:34px 0 calc(34px + env(safe-area-inset-bottom,0px));font-size:.82rem;opacity:.6;}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+
+/* CARRELLO */
+.cart-btn{position:relative;background:var(--azzurro);color:#fff;border:0;border-radius:4px;padding:9px 12px;font-weight:700;cursor:pointer;font-family:inherit}
+.cart-count{display:inline-flex;min-width:20px;height:20px;align-items:center;justify-content:center;background:var(--fritti);color:#231705;border-radius:50%;font-size:.7rem;margin-left:5px}
+.item-actions{display:flex;align-items:center;gap:10px}
+.add-btn{background:transparent;color:var(--acc);border:1px solid var(--acc);border-radius:4px;padding:6px 9px;font-weight:700;cursor:pointer}
+.add-btn:hover{background:var(--acc);color:#fff}
+.cart-panel{position:fixed;right:0;top:0;width:min(420px,100%);height:100vh;background:var(--card);color:var(--fg);z-index:100;padding:22px;box-shadow:-8px 0 30px rgba(0,0,0,.35);transform:translateX(100%);transition:transform .25s ease;display:flex;flex-direction:column}
+.cart-panel.open{transform:translateX(0)}
+.cart-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:14px}
+.close-cart{background:none;border:0;color:var(--fg);font-size:1.8rem;cursor:pointer}
+.cart-items{flex:1;overflow:auto;padding:12px 0}
+.cart-row{display:grid;grid-template-columns:1fr auto;gap:10px;padding:13px 0;border-bottom:1px dashed var(--line)}
+.cart-row h4{margin:0;font-size:.95rem}
+.cart-price{font-weight:700;color:var(--azzurro)}
+.qty{display:flex;align-items:center;gap:7px;margin-top:7px}
+.qty button{width:28px;height:28px;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:3px;cursor:pointer}
+.remove-btn{border:0;background:none;color:#d66;font-size:.75rem;cursor:pointer;margin-left:8px}
+.cart-footer{border-top:1px solid var(--line);padding-top:15px}
+.cart-total{display:flex;justify-content:space-between;font-size:1.1rem;font-weight:800;margin-bottom:12px}
+.checkout-btn{width:100%;background:var(--azzurro);color:#fff;border:0;padding:13px;border-radius:4px;font-weight:800;cursor:pointer}
+.cart-empty{text-align:center;opacity:.65;padding:40px 10px}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:90}
+.overlay.open{display:block}
+@media(max-width:600px){nav{display:none}.cart-panel{width:100%}}
+
+</style>
+
+<style>
+#checkoutPage{display:none;min-height:100vh;background:var(--bg);color:var(--fg);padding:70px 0;}
+.checkout-card{max-width:620px;margin:auto;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:28px;}
+.checkout-card h1{font-size:2rem;margin-bottom:8px;}
+.checkout-card .sub{opacity:.65;margin-bottom:22px;}
+.checkout-summary{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:15px 0;margin:18px 0;}
+.checkout-row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;}
+.checkout-total{font-weight:800;font-size:1.15rem;margin-top:8px;}
+.payment-form label{display:block;font-size:.8rem;margin:13px 0 5px;opacity:.75;}
+.payment-form input{width:100%;padding:12px;border:1px solid var(--line);border-radius:5px;background:var(--bg);color:var(--fg);font:inherit;}
+.payment-form button{margin-top:18px;width:100%;padding:13px;border:0;border-radius:5px;background:var(--azzurro);color:#fff;font-weight:800;cursor:pointer;}
+.back-btn{display:inline-block;margin-bottom:18px;text-decoration:none;opacity:.75;cursor:pointer;}
+.checkout-success{display:none;text-align:center;padding:25px 0;}
+.checkout-success .ok{font-size:3rem;}
+</style>
+
+
+<style>
+.address-section{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);}
+.address-section h3{font-size:1.05rem;margin-bottom:8px;}
+.address-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.address-grid .full{grid-column:1/-1;}
+.address-grid label{display:block;font-size:.78rem;margin-bottom:5px;opacity:.75;}
+.address-grid input,.address-grid select{width:100%;padding:11px;border:1px solid var(--line);border-radius:5px;background:var(--bg);color:var(--fg);font:inherit;}
+.delivery-choice{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;}
+.delivery-choice button{padding:11px;border:1px solid var(--line);border-radius:5px;background:var(--bg);color:var(--fg);font:inherit;font-weight:600;cursor:pointer;}
+.delivery-choice button.active{outline:2px solid var(--azzurro);border-color:var(--azzurro);}
+.order-final{margin-top:18px;padding:14px;border-radius:6px;background:rgba(30,136,199,.08);font-size:.85rem;}
+@media(max-width:600px){.address-grid{grid-template-columns:1fr;}.address-grid .full{grid-column:auto;}.delivery-choice{grid-template-columns:1fr;}}
+</style>
+
+</head>
+<body>
+
+<div class="announce">ANTEPRIMA BETA — DOMINIO IN ARRIVO</div>
+
+<header>
+  <div class="wrap">
+    <div class="mark">KEBAB AZZURRO<small>GROUP · NAPOLI</small></div>
+    <nav>
+      <a href="#doner">Döner</a><a href="#grill">Grill</a><a href="#sedi">Sedi</a><a href="#recensioni">Recensioni</a>
+    </nav>
+    <button class="cart-btn" id="openCart" type="button">🛒 Carrello <span class="cart-count" id="cartCount">0</span></button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-num">DAL CENTRO DI NAPOLI</div>
+    <h1>Quattro divisioni,<br><em>un solo standard.</em></h1>
+    <p>Döner, grill, fritti e insalate — ogni divisione con la sua ricetta, tutte sotto lo stesso controllo qualità. Due sedi, un solo gruppo.</p>
+    <div class="stats">
+      <div class="stat"><b>2</b><span>SEDI A NAPOLI</span></div>
+      <div class="stat"><b>4</b><span>DIVISIONI</span></div>
+      <div class="stat"><b>40+</b><span>PIATTI IN CARTA</span></div>
+    </div>
+  </div>
+  <div class="ticker"><div class="ticker-track">
+    <span>01 <b>DÖNER</b></span><span>02 <b>GRILL &amp; PANINI</b></span><span>03 <b>FRITTI &amp; CONTORNI</b></span><span>04 <b>INSALATE</b></span>
+    <span>01 <b>DÖNER</b></span><span>02 <b>GRILL &amp; PANINI</b></span><span>03 <b>FRITTI &amp; CONTORNI</b></span><span>04 <b>INSALATE</b></span>
+  </div></div>
+</section>
+
+<section class="division" id="doner">
+  <div class="wrap">
+    <div class="division-head"><span class="n">01</span><h2>Döner</h2><span class="tag">La divisione storica</span></div>
+    <div class="items">
+      <div class="item"><div><h4>Kebab Classico</h4><p>Kebab, patate, insalata, pomodoro, cipolla, yogurt, piccante, ketchup, maionese</p></div><div class="item-actions"><span class="p">€5,00</span><button class="add-btn" type="button" onclick="addToCart('Kebab Classico', 5.00)">+</button></div></div>
+      <div class="item"><div><h4>Kebab Napoletano</h4><p>Kebab, provola, patate</p></div><div class="item-actions"><span class="p">€6,00</span><button class="add-btn" type="button" onclick="addToCart('Kebab Napoletano', 6.00)">+</button></div></div>
+      <div class="item"><div><h4>Kebab Americano</h4><p>Kebab, cheddar, bacon, patate</p></div><div class="item-actions"><span class="p">€7,00</span><button class="add-btn" type="button" onclick="addToCart('Kebab Americano', 7.00)">+</button></div></div>
+      <div class="item"><div><h4>Super Kebab</h4><p>Kebab, provola, melenzane sotto'olio, insalata</p></div><div class="item-actions"><span class="p">€7,00</span><button class="add-btn" type="button" onclick="addToCart('Super Kebab', 7.00)">+</button></div></div>
+      <div class="item"><div><h4>Turkish Piatto</h4><p>kebab, patate, insalata, pomodoro, cipolla, carote, olive, mais</p></div><div class="item-actions"><span class="p">€8,00</span><button class="add-btn" type="button" onclick="addToCart('Turkish Piatto', 8.00)">+</button></div></div>
+      <div class="item"><div><h4>Falafel Panino/Piadina</h4><p>Falafel, insalata, pomodoro, cipolla, patate</p></div><div class="item-actions"><span class="p">€5,00</span><button class="add-btn" type="button" onclick="addToCart('Falafel Panino/Piadina', 5.00)">+</button></div></div>
+      <div class="item"><div><h4>Falafel Piatto</h4><p>Falafel, insalata, pomodoro, cipolla, carote, olive, mais</p></div><div class="item-actions"><span class="p">€8,00</span><button class="add-btn" type="button" onclick="addToCart('Falafel Piatto', 8.00)">+</button></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="division" id="grill">
+  <div class="wrap">
+    <div class="division-head"><span class="n">02</span><h2>Grill &amp; Panini</h2><span class="tag">Hamburger, cotolette, pollo</span></div>
+    <div class="items">
+      <div class="item"><div><h4>Valantino Rossi 46</h4><p>Hamburger, cheddar, bacon, patate</p></div><div class="item-actions"><span class="p">€8,00</span><button class="add-btn" type="button" onclick="addToCart('Valantino Rossi 46', 8.00)">+</button></div></div>
+      <div class="item"><div><h4>G3</h4><p>Hamburger, provola, funghi</p></div><div class="item-actions"><span class="p">€7,00</span><button class="add-btn" type="button" onclick="addToCart('G3', 7.00)">+</button></div></div>
+      <div class="item"><div><h4>Napoletano</h4><p>Hamburger, provola, friarielli</p></div><div class="item-actions"><span class="p">€8,00</span><button class="add-btn" type="button" onclick="addToCart('Napoletano', 8.00)">+</button></div></div>
+      <div class="item"><div><h4>Hamsik</h4><p>Hamburger, provola, peperoni</p></div><div class="item-actions"><span class="p">€7,00</span><button class="add-btn" type="button" onclick="addToCart('Hamsik', 7.00)">+</button></div></div>
+      <div class="item"><div><h4>M10</h4><p>Hamburger, provola, parmigiana, crocche' di patate</p></div><div class="item-actions"><span class="p">€9,00</span><button class="add-btn" type="button" onclick="addToCart('M10', 9.00)">+</button></div></div>
+      <div class="item"><div><h4>Azzurro</h4><p>Hamburger, provola, peperoni</p></div><div class="item-actions"><span class="p">€8,00</span><button class="add-btn" type="button" onclick="addToCart('Azzurro', 8.00)">+</button></div></div>
+      <div class="item"><div><h4>Americano</h4><p>Hamburger, cheddar, melenzane arrostite</p></div><div class="item-actions"><span class="p">€9,00</span><button class="add-btn" type="button" onclick="addToCart('Americano', 9.00)">+</button></div></div>
+      <div class="item"><div><h4>NY</h4><p>Hamburger, Contorno, provola</p></div><div class="item-actions"><span class="p">€7,00</span><button class="add-btn" type="button" onclick="addToCart('NY', 7.00)">+</button></div></div>
+      <div class="item"><div><h4>Classico</h4><p>cotoletta, insalata, pomodoro, sottiletta</p></div><div class="item-actions"><span class="p">€7,00</span><button class="add-btn" type="button" onclick="addToCart('Classico', 7.00)">+</button></div></div>
+      <div class="item"><div><h4>Super</h4><p>cotoletta, provola, melenzane a funghetto</p></div><div class="item-actions"><span class="p">€7,00</span><button class="add-btn" type="button" onclick="addToCart('Super', 7.00)">+</button></div></div>
+      <div class="item"><div><h4>Toto'</h4><p>cotoletta, provola, contorno</p></div><div class="item-actions"><span class="p">€7,00</span><button class="add-btn" type="button" onclick="addToCart("Toto'", 7.00)">+</button></div></div>
+      <div class="item"><div><h4>Petto di Pollo Classico</h4><p>petto di pollo, insalata,pomodoro, sottiletta</p></div><div class="item-actions"><span class="p">€7,00</span><button class="add-btn" type="button" onclick="addToCart('Petto di Pollo Classico', 7.00)">+</button></div></div>
+      <div class="item"><div><h4>Petto di Pollo</h4><p>petto di pollo, provola, rucola</p></div><div class="item-actions"><span class="p">€7,00</span><button class="add-btn" type="button" onclick="addToCart('Petto di Pollo', 7.00)">+</button></div></div>
+      <div class="item"><div><h4>Petto di Pollo Special</h4><p>Petto di pollo, provola, contorno</p></div><div class="item-actions"><span class="p">€8,00</span><button class="add-btn" type="button" onclick="addToCart('Petto di Pollo Special', 8.00)">+</button></div></div>
+      <div class="item"><div><h4>Cheese Steak</h4><p>Cheese steak, sottilettta,patate</p></div><div class="item-actions"><span class="p">€7,00</span><button class="add-btn" type="button" onclick="addToCart('Cheese Steak', 7.00)">+</button></div></div>
+      <div class="item"><div><h4>Bandidos</h4><p>bandidos, cheddar, patate</p></div><div class="item-actions"><span class="p">€7,00</span><button class="add-btn" type="button" onclick="addToCart('Bandidos', 7.00)">+</button></div></div>
+      <div class="item"><div><h4>Double Stick</h4><p>double stick, provla, patate</p></div><div class="item-actions"><span class="p">€7,00</span><button class="add-btn" type="button" onclick="addToCart('Double Stick', 7.00)">+</button></div></div>
+      <div class="item"><div><h4>Hot Dog</h4><p>hot dog, maionese</p></div><div class="item-actions"><span class="p">€5,00</span><button class="add-btn" type="button" onclick="addToCart('Hot Dog', 5.00)">+</button></div></div>
+      <div class="item"><div><h4>Hot Dog Grande</h4><p>hot dog, patate</p></div><div class="item-actions"><span class="p">€6,00</span><button class="add-btn" type="button" onclick="addToCart('Hot Dog Grande', 6.00)">+</button></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="division" id="fritti">
+  <div class="wrap">
+    <div class="division-head"><span class="n">03</span><h2>Fritti &amp; Contorni</h2><span class="tag">Da accompagnare</span></div>
+    <div class="items">
+      <div class="item"><div><h4>Patate</h4></div><div class="item-actions"><span class="p">€3,00</span><button class="add-btn" type="button" onclick="addToCart('Patate', 3.00)">+</button></div></div>
+      <div class="item"><div><h4>Patate Wurstel</h4></div><div class="item-actions"><span class="p">€4,00</span><button class="add-btn" type="button" onclick="addToCart('Patate Wurstel', 4.00)">+</button></div></div>
+      <div class="item"><div><h4>Patate con Kebab (grande)</h4></div><div class="item-actions"><span class="p">€6,00</span><button class="add-btn" type="button" onclick="addToCart('Patate con Kebab (grande)', 6.00)">+</button></div></div>
+      <div class="item"><div><h4>Patate con Kebab (piccolo)</h4></div><div class="item-actions"><span class="p">€5,00</span><button class="add-btn" type="button" onclick="addToCart('Patate con Kebab (piccolo)', 5.00)">+</button></div></div>
+      <div class="item"><div><h4>Jalapeño</h4></div><div class="item-actions"><span class="p">€4,00</span><button class="add-btn" type="button" onclick="addToCart('Jalapeño', 4.00)">+</button></div></div>
+      <div class="item"><div><h4>Crocchè di Patate</h4></div><div class="item-actions"><span class="p">€4,00</span><button class="add-btn" type="button" onclick="addToCart('Crocchè di Patate', 4.00)">+</button></div></div>
+      <div class="item"><div><h4>Alette di Pollo</h4></div><div class="item-actions"><span class="p">€5,00</span><button class="add-btn" type="button" onclick="addToCart('Alette di Pollo', 5.00)">+</button></div></div>
+      <div class="item"><div><h4>Speedy di Pollo</h4></div><div class="item-actions"><span class="p">€5,00</span><button class="add-btn" type="button" onclick="addToCart('Speedy di Pollo', 5.00)">+</button></div></div>
+      <div class="item"><div><h4>Speedy di Bandidos</h4></div><div class="item-actions"><span class="p">€5,00</span><button class="add-btn" type="button" onclick="addToCart('Speedy di Bandidos', 5.00)">+</button></div></div>
+      <div class="item"><div><h4>Chele di Granchio</h4></div><div class="item-actions"><span class="p">€5,00</span><button class="add-btn" type="button" onclick="addToCart('Chele di Granchio', 5.00)">+</button></div></div>
+      <div class="item"><div><h4>Mozzarelline</h4></div><div class="item-actions"><span class="p">€5,00</span><button class="add-btn" type="button" onclick="addToCart('Mozzarelline', 5.00)">+</button></div></div>
+      <div class="item"><div><h4>Patate Twister</h4></div><div class="item-actions"><span class="p">€5,00</span><button class="add-btn" type="button" onclick="addToCart('Patate Twister', 5.00)">+</button></div></div>
+      <div class="item"><div><h4>Samosa (1 pezzo)</h4></div><div class="item-actions"><span class="p">€4,00</span><button class="add-btn" type="button" onclick="addToCart('Samosa (1 pezzo)', 4.00)">+</button></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="division" id="insalate">
+  <div class="wrap">
+    <div class="division-head"><span class="n">04</span><h2>Insalate</h2><span class="tag">La linea leggera</span></div>
+    <div class="items">
+      <div class="item"><div><h4>Insalata Mista</h4></div><div class="item-actions"><span class="p">€5,00</span><button class="add-btn" type="button" onclick="addToCart('Insalata Mista', 5.00)">+</button></div></div>
+      <div class="item"><div><h4>Insalata con Pollo</h4></div><div class="item-actions"><span class="p">€7,00</span><button class="add-btn" type="button" onclick="addToCart('Insalata con Pollo', 7.00)">+</button></div></div>
+      <div class="item"><div><h4>Insalata di Tonno</h4></div><div class="item-actions"><span class="p">€6,00</span><button class="add-btn" type="button" onclick="addToCart('Insalata di Tonno', 6.00)">+</button></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="sedi">
+  <div class="wrap">
+    <div class="division-head"><h2>Sedi operative</h2></div>
+    <div class="sedi-grid">
+      <div class="sede">
+        <div class="id">SEDE 01</div><h3>Epomeo</h3>
+        <div>Via dell'Epomeo 70, Napoli</div>
+        <div class="hh">Tutti i giorni, 17:30–05:00</div>
+        <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Via+dell'Epomeo+70+Napoli">Apri in Google Maps →</a>
+      </div>
+      <div class="sede">
+        <div class="id">SEDE 02</div><h3>Lepanto</h3>
+        <div>Via Lepanto 117, Napoli</div>
+        <div class="hh">Lun–Ven 12:00–04:00 · Sab 12:00–05:30 · Dom 12:00–04:00</div>
+        <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Via+Lepanto+117+Napoli">Apri in Google Maps →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="recensioni">
+  <div class="wrap">
+    <div class="division-head"><h2>Cosa dice il mercato</h2></div>
+    <div id="revList"><p class="note">Caricamento recensioni…</p></div>
+    <form class="rform" id="rf">
+      <h3 style="font-size:1.05rem;">Lascia una recensione</h3>
+      <label for="rsede">Sede</label>
+      <select id="rsede" required style="width:100%;padding:11px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--fg);font-family:inherit;font-size:.95rem;">
+        <option value="epomeo">Epomeo</option>
+        <option value="lepanto">Lepanto</option>
+      </select>
+      <label for="rn">Nome</label><input id="rn" required>
+      <label for="rr">Voto (1–5)</label><input id="rr" type="number" min="1" max="5" value="5" required>
+      <label for="rt">La tua esperienza</label><textarea id="rt" required></textarea>
+      <button type="submit">Invia recensione</button>
+      <p class="note">Ogni recensione viene controllata prima di essere pubblicata.</p>
+      <p class="confirm" id="rc">Grazie! In attesa di verifica.</p>
+    </form>
+  </div>
+</section>
+
+
+<div class="overlay" id="cartOverlay"></div>
+<aside class="cart-panel" id="cartPanel" aria-label="Carrello">
+  <div class="cart-head">
+    <h2>Il tuo carrello</h2>
+    <button class="close-cart" id="closeCart" type="button" aria-label="Chiudi">×</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">Il carrello è vuoto.</div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total"><span>Totale</span><span id="cartTotal">€0,00</span></div>
+    
+<div class="checkout-box" id="paymentBox">
+  <h3>Metodo di pagamento</h3>
+  <div class="pay-grid">
+    <button type="button" class="pay-option active" data-payment="Carta">💳 Carta</button>
+    <button type="button" class="pay-option" data-payment="Klarna">Klarna</button>
+    <button type="button" class="pay-option" data-payment="PostePay">PostePay</button>
+  </div>
+  <p class="pay-note" id="paymentNote">Pagamento con carta selezionato.</p>
+</div>
+
+<button class="checkout-btn" id="checkoutBtn" type="button">Conferma ordine</button>
+  </div>
+</aside>
+
+
+<section class="external-orders" id="ordini">
+  <div class="wrap">
+    <div class="division-head"><h2>Ordina d'asporto</h2></div>
+    <p>Ordina Kebab Azzurro direttamente sulle piattaforme disponibili.</p>
+    <div class="order-links">
+      <a class="order-link" href="https://www.justeat.it/restaurants-kebab-azzurro-ristorante-arabo-napoli/menu" target="_blank" rel="noopener">
+        <strong>Just Eat →</strong>
+        <span>Kebab Azzurro Ristorante Arabo · Via Lepanto 117</span>
+      
+      
+
+
+<section id="checkoutPage">
+  <div class="wrap">
+    <div class="checkout-card">
+      <a class="back-btn" id="backToSite">← Torna al sito</a>
+      <div id="checkoutForm">
+        <h1 id="checkoutTitle">Pagamento</h1>
+        <p class="sub" id="checkoutSubtitle">Completa i dati per proseguire.</p>
+
+        <div class="checkout-summary">
+          <div id="checkoutItems"></div>
+          <div class="checkout-row checkout-total">
+            <span>Totale</span><span id="checkoutTotal">€0,00</span>
+          </div>
+        </div>
+
+        
+<div class="address-section">
+  <h3>📍 Dove vuoi ricevere l'ordine?</h3>
+  <div class="delivery-choice">
+    <button type="button" class="delivery-btn active" data-delivery="Asporto">🏪 Ritiro d'asporto</button>
+    <button type="button" class="delivery-btn" data-delivery="Consegna">🛵 Consegna a domicilio</button>
+  </div>
+
+  <div id="addressFields" style="display:none;margin-top:14px;">
+    <div class="address-grid">
+      <div class="full">
+        <label for="customerName">Nome e cognome</label>
+        <input id="customerName" autocomplete="name" placeholder="Mario Rossi">
+      </div>
+      <div class="full">
+        <label for="customerAddress">Indirizzo</label>
+        <input id="customerAddress" autocomplete="street-address" placeholder="Via Roma 10">
+      </div>
+      <div>
+        <label for="customerCity">Città</label>
+        <input id="customerCity" autocomplete="address-level2" placeholder="Napoli">
+      </div>
+      <div>
+        <label for="customerCap">CAP</label>
+        <input id="customerCap" inputmode="numeric" autocomplete="postal-code" placeholder="80100">
+      </div>
+      <div>
+        <label for="customerPhone">Telefono</label>
+        <input id="customerPhone" type="tel" autocomplete="tel" placeholder="333 1234567">
+      </div>
+      <div>
+        <label for="customerNote">Note per il corriere</label>
+        <input id="customerNote" placeholder="Citofono, piano, ecc.">
+      </div>
+    </div>
+  </div>
+
+  <div class="order-final">
+<div id="lepantoHours" style="margin-top:12px;font-size:.78rem;opacity:.7;">
+      🕐 Orari Lepanto: Lun–Ven 12:00–04:00 · Sabato 12:00–05:30 · Domenica 12:00–04:00
+    </div>
+    <strong>Riepilogo consegna:</strong>
+    <span id="deliverySummary">Ritiro d'asporto presso il locale.</span>
+  </div>
+</div>
+
+
+<form class="payment-form" id="specificPaymentForm">
+          <div id="cardFields">
+            <label for="payerName">Nome e cognome</label>
+            <input id="payerName" required placeholder="Mario Rossi">
+
+            <label for="cardNumber">Numero carta</label>
+            <input id="cardNumber" inputmode="numeric" required placeholder="0000 0000 0000 0000">
+
+            <label for="expiry">Scadenza</label>
+            <input id="expiry" required placeholder="MM/AA">
+
+            <label for="cvv">CVV</label>
+            <input id="cvv" inputmode="numeric" required placeholder="123">
+          </div>
+
+          <div id="klarnaFields" style="display:none;">
+            <label for="klarnaEmail">Email Klarna</label>
+            <input id="klarnaEmail" type="email" placeholder="nome@email.it">
+            <p class="pay-note">Questa è una pagina dimostrativa: non vengono effettuati pagamenti reali.</p>
+          </div>
+
+          <div id="postepayFields" style="display:none;">
+            <label for="postepayNumber">Numero PostePay</label>
+            <input id="postepayNumber" inputmode="numeric" placeholder="0000 0000 0000 0000">
+            <p class="pay-note">Questa è una pagina dimostrativa: non vengono effettuati pagamenti reali.</p>
+          </div>
+
+          <button type="submit" id="payNow">Paga e conferma ordine</button>
+        </form>
+      </div>
+
+      <div class="checkout-success" id="checkoutSuccess">
+        <div class="ok">✓</div>
+        <h1>Ordine confermato!</h1>
+        <p id="successText">Il tuo ordine è stato registrato.</p>
+        <button type="button" id="returnHome" class="payment-form button">Torna al sito</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Kebab Azzurro Group · Napoli</span>
+    <span>Epomeo 70 · Lepanto 117</span>
+  </div>
+</footer>
+
+<script>
+
+/* CARRELLO */
+let cart = JSON.parse(localStorage.getItem("kebabCart") || "[]");
+
+function saveCart(){
+  localStorage.setItem("kebabCart", JSON.stringify(cart));
+}
+
+function addToCart(name, price){
+  const existing = cart.find(item => item.name === name);
+  if(existing){
+    existing.qty++;
+  }else{
+    cart.push({name, price, qty:1});
+  }
+  saveCart();
+  renderCart();
+  openCart();
+}
+
+function changeQty(name, amount){
+  const item = cart.find(item => item.name === name);
+  if(!item) return;
+  item.qty += amount;
+  if(item.qty <= 0){
+    cart = cart.filter(i => i.name !== name);
+  }
+  saveCart();
+  renderCart();
+}
+
+function removeFromCart(name){
+  cart = cart.filter(item => item.name !== name);
+  saveCart();
+  renderCart();
+}
+
+function renderCart(){
+  const list = document.getElementById("cartItems");
+  const count = document.getElementById("cartCount");
+  const totalEl = document.getElementById("cartTotal");
+
+  const totalQty = cart.reduce((sum,item) => sum + item.qty, 0);
+  const total = cart.reduce((sum,item) => sum + item.price * item.qty, 0);
+
+  count.textContent = totalQty;
+  totalEl.textContent = "€" + total.toFixed(2).replace(".", ",");
+
+  if(!cart.length){
+    list.innerHTML = '<div class="cart-empty">Il carrello è vuoto.</div>';
+    return;
+  }
+
+  list.innerHTML = cart.map(item => `
+    <div class="cart-row">
+      <div>
+        <h4>${item.name}</h4>
+        <div class="qty">
+          <button type="button" onclick="changeQty(${JSON.stringify(item.name)}, -1)">−</button>
+          <b>${item.qty}</b>
+          <button type="button" onclick="changeQty(${JSON.stringify(item.name)}, 1)">+</button>
+          <button class="remove-btn" type="button" onclick="removeFromCart(${JSON.stringify(item.name)})">Rimuovi</button>
+        </div>
+      </div>
+      <div class="cart-price">€${(item.price * item.qty).toFixed(2).replace(".", ",")}</div>
+    </div>
+  `).join("");
+}
+
+function openCart(){
+  document.getElementById("cartPanel").classList.add("open");
+  document.getElementById("cartOverlay").classList.add("open");
+}
+
+function closeCart(){
+  document.getElementById("cartPanel").classList.remove("open");
+  document.getElementById("cartOverlay").classList.remove("open");
+}
+
+document.getElementById("openCart").addEventListener("click", openCart);
+document.getElementById("closeCart").addEventListener("click", closeCart);
+document.getElementById("cartOverlay").addEventListener("click", closeCart);
+
+document.getElementById("checkoutBtn").addEventListener("click", function(){
+  if(!cart.length){
+    alert("Il carrello è vuoto.");
+    return;
+  }
+  const total = cart.reduce((sum,item) => sum + item.price * item.qty, 0);
+  alert("Ordine pronto! Totale: €" + total.toFixed(2).replace(".", ","));
+});
+
+renderCart();
+
+// Sostituisci con l'URL del Worker dopo il deploy (es. https://kebab-azzurro-api.<tuo-account>.workers.dev)
+const API_URL = "https://kebab-azzurro-api.becchinigiuseppe.workers.dev";
+
+function stars(n){return "★".repeat(n)+"☆".repeat(5-n);}
+function sedeLabel(s){return s==='lepanto' ? 'Lepanto' : 'Epomeo';}
+
+async function loadReviews(){
+  const el = document.getElementById('revList');
+  try{
+    const res = await fetch(API_URL + "/reviews");
+    const data = await res.json();
+    if(!data.length){ el.innerHTML = '<p class="note">Nessuna recensione ancora.</p>'; return; }
+    el.innerHTML = data.map(r => `
+      <div class="rev">
+        <div class="rev-top"><b>${r.name}</b><span class="badge">Verificata · ${sedeLabel(r.sede)}</span></div>
+        <div class="stars">${stars(r.rating)}</div>
+        <p>${r.text}</p>
+      </div>`).join('');
+  }catch(err){
+    el.innerHTML = '<p class="note">Recensioni non disponibili al momento.</p>';
+  }
+}
+loadReviews();
+
+document.getElementById('rf').addEventListener('submit', async function(e){
+  e.preventDefault();
+  const payload = {
+    sede: document.getElementById('rsede').value,
+    name: document.getElementById('rn').value,
+    rating: document.getElementById('rr').value,
+    text: document.getElementById('rt').value,
+  };
+  try{
+    await fetch(API_URL + "/reviews", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify(payload)
+    });
+    document.getElementById('rc').style.display='block';
+    this.reset();
+  }catch(err){
+    alert("Invio non riuscito, riprova.");
+  }
+});
+
+document.querySelectorAll('.pay-option').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.pay-option').forEach(function(b){b.classList.remove('active');});
+    this.classList.add('active');
+    const method = this.dataset.payment;
+    const note = document.getElementById('paymentNote');
+    if(note) note.textContent = 'Metodo selezionato: ' + method + '.';
+    localStorage.setItem('paymentMethod', method);
+  });
+});
+(function(){
+  const saved = localStorage.getItem('paymentMethod');
+  if(saved){
+    document.querySelectorAll('.pay-option').forEach(function(b){
+      b.classList.toggle('active', b.dataset.payment === saved);
+    });
+    const note = document.getElementById('paymentNote');
+    if(note) note.textContent = 'Metodo selezionato: ' + saved + '.';
+  }
+})();
+
+(function(){
+  const page = document.getElementById('checkoutPage');
+  const siteSections = Array.from(document.body.children).filter(el => el.id !== 'checkoutPage');
+  const paymentButtons = document.querySelectorAll('.pay-option');
+  const checkoutTitle = document.getElementById('checkoutTitle');
+  const checkoutSubtitle = document.getElementById('checkoutSubtitle');
+  const checkoutItems = document.getElementById('checkoutItems');
+  const checkoutTotal = document.getElementById('checkoutTotal');
+  const cardFields = document.getElementById('cardFields');
+  const klarnaFields = document.getElementById('klarnaFields');
+  const postepayFields = document.getElementById('postepayFields');
+  const form = document.getElementById('specificPaymentForm');
+  const success = document.getElementById('checkoutSuccess');
+  const checkoutForm = document.getElementById('checkoutForm');
+
+  function money(n){ return '€' + Number(n).toFixed(2).replace('.', ','); }
+
+  function getCart(){
+    try {
+      const saved = localStorage.getItem('cart');
+      return saved ? JSON.parse(saved) : [];
+    } catch(e){ return []; }
+  }
+
+  function getTotal(cart){
+    return cart.reduce((sum,item) => sum + Number(item.price || 0) * Number(item.qty || item.quantity || 1), 0);
+  }
+
+  function showSite(show){
+    siteSections.forEach(el => el.style.display = show ? '' : 'none');
+    page.style.display = show ? 'none' : 'block';
+    window.scrollTo(0,0);
+  }
+
+  function openCheckout(method){
+    localStorage.setItem('paymentMethod', method);
+    const cart = getCart();
+
+    checkoutTitle.textContent = method === 'Klarna' ? 'Pagamento con Klarna'
+      : method === 'PostePay' ? 'Pagamento con PostePay'
+      : 'Pagamento con Carta';
+
+    checkoutSubtitle.textContent = 'Hai scelto: ' + method + '. Controlla l’ordine e completa il pagamento.';
+
+    checkoutItems.innerHTML = cart.length
+      ? cart.map(item => {
+          const qty = Number(item.qty || item.quantity || 1);
+          return '<div class="checkout-row"><span>' + item.name + ' × ' + qty + '</span><span>' + money(Number(item.price||0)*qty) + '</span></div>';
+        }).join('')
+      : '<p class="pay-note">Il carrello è vuoto.</p>';
+
+    checkoutTotal.textContent = money(getTotal(cart));
+
+    cardFields.style.display = method === 'Carta' ? 'block' : 'none';
+    klarnaFields.style.display = method === 'Klarna' ? 'block' : 'none';
+    postepayFields.style.display = method === 'PostePay' ? 'block' : 'none';
+
+    // Make only the visible method fields required.
+    document.querySelectorAll('#cardFields input').forEach(i => i.required = method === 'Carta');
+    document.getElementById('klarnaEmail').required = method === 'Klarna';
+    document.getElementById('postepayNumber').required = method === 'PostePay';
+
+    checkoutForm.style.display = 'block';
+    success.style.display = 'none';
+    showSite(false);
+  }
+
+  paymentButtons.forEach(btn => {
+    btn.addEventListener('click', function(){
+      openCheckout(this.dataset.payment);
+    });
+  });
+
+  // Also make the cart confirmation button go to the selected payment page.
+  document.querySelectorAll('button').forEach(btn => {
+    if (/conferma ordine/i.test(btn.textContent || '')) {
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        openCheckout(localStorage.getItem('paymentMethod') || 'Carta');
+      });
+    }
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    const method = localStorage.getItem('paymentMethod') || 'Carta';
+    const cart = getCart();
+
+    // Demo only: no real transaction is made.
+    localStorage.setItem('lastOrder', JSON.stringify({
+      payment: method,
+      total: getTotal(cart),
+      date: new Date().toISOString()
+    }));
+    localStorage.removeItem('cart');
+
+    checkoutForm.style.display = 'none';
+    success.style.display = 'block';
+    document.getElementById('successText').textContent =
+      'Pagamento demo completato con ' + method + '. Totale: ' + money(getTotal(cart)) + '.';
+  });
+
+  document.getElementById('backToSite').addEventListener('click', function(){
+    showSite(true);
+  });
+  document.getElementById('returnHome').addEventListener('click', function(){
+    showSite(true);
+  });
+})();
+
+
+(function(){
+  const deliveryButtons = document.querySelectorAll('.delivery-btn');
+  const addressFields = document.getElementById('addressFields');
+  const deliverySummary = document.getElementById('deliverySummary');
+  const customerName = document.getElementById('customerName');
+  const customerAddress = document.getElementById('customerAddress');
+  const customerCity = document.getElementById('customerCity');
+  const customerCap = document.getElementById('customerCap');
+  const customerPhone = document.getElementById('customerPhone');
+  const customerNote = document.getElementById('customerNote');
+  let deliveryMode = localStorage.getItem('deliveryMode') || 'Asporto';
+
+  function updateDeliveryUI(){
+    deliveryButtons.forEach(b => b.classList.toggle('active', b.dataset.delivery === deliveryMode));
+    const isDelivery = deliveryMode === 'Consegna';
+    addressFields.style.display = isDelivery ? 'block' : 'none';
+    [customerName, customerAddress, customerCity, customerCap, customerPhone].forEach(i => i.required = isDelivery);
+    deliverySummary.textContent = isDelivery
+      ? 'Consegna a domicilio: inserisci il tuo indirizzo.'
+      : 'Ritiro d\'asporto presso il locale.';
+  }
+
+  deliveryButtons.forEach(btn => {
+    btn.addEventListener('click', function(){
+      deliveryMode = this.dataset.delivery;
+      localStorage.setItem('deliveryMode', deliveryMode);
+      updateDeliveryUI();
+    });
+  });
+
+  updateDeliveryUI();
+
+  // Wrap/extend the existing submit handler: validate delivery data and save order details.
+  const originalForm = document.getElementById('specificPaymentForm');
+  if(originalForm){
+    originalForm.addEventListener('submit', function(e){
+      if(deliveryMode === 'Consegna'){
+        if(!customerName.value.trim() || !customerAddress.value.trim() ||
+           !customerCity.value.trim() || !customerCap.value.trim() || !customerPhone.value.trim()){
+          e.preventDefault();
+          alert('Inserisci tutti i dati di consegna prima di confermare l\'ordine.');
+          return;
+        }
+
+        const deliveryData = {
+          mode: 'Consegna',
+          name: customerName.value.trim(),
+          address: customerAddress.value.trim(),
+          city: customerCity.value.trim(),
+          cap: customerCap.value.trim(),
+          phone: customerPhone.value.trim(),
+          note: customerNote.value.trim()
+        };
+        localStorage.setItem('deliveryData', JSON.stringify(deliveryData));
+      } else {
+        localStorage.setItem('deliveryData', JSON.stringify({mode:'Asporto'}));
+      }
+    }, true);
+
+    // Show saved data when reopening checkout.
+    try{
+      const saved = JSON.parse(localStorage.getItem('deliveryData') || 'null');
+      if(saved && saved.mode === 'Consegna'){
+        deliveryMode = 'Consegna';
+        customerName.value = saved.name || '';
+        customerAddress.value = saved.address || '';
+        customerCity.value = saved.city || '';
+        customerCap.value = saved.cap || '';
+        customerPhone.value = saved.phone || '';
+        customerNote.value = saved.note || '';
+        updateDeliveryUI();
+      }
+    }catch(e){}
+  }
+})();
+
+</script>
+</body>
+</html>
