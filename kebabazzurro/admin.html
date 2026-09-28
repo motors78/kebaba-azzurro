@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kebab Azzurro — Pannello recensioni</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0D1417; --paper:#F3EFE6; --azzurro:#1E88C7; --grill:#C0432C; --insalate:#6E8F4E;
+  --line:rgba(243,239,230,.16); --bg:var(--ink); --fg:var(--paper); --card:#141D22;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:'Work Sans',system-ui,sans-serif;}
+.wrap{max-width:640px;margin:0 auto;padding:26px 20px calc(26px + env(safe-area-inset-bottom,0px));}
+h1{font-family:'Bricolage Grotesque';font-weight:800;font-size:1.5rem;margin:0 0 4px;}
+.sub{opacity:.6;font-size:.85rem;margin-bottom:22px;}
+.keybox{display:flex;gap:8px;margin-bottom:22px;}
+.keybox input{flex:1;padding:11px;border:1px solid var(--line);border-radius:4px;background:var(--card);color:var(--fg);font-family:inherit;}
+.keybox button{background:var(--azzurro);color:#fff;border:none;padding:11px 18px;border-radius:4px;font-weight:700;cursor:pointer;font-family:inherit;}
+#panel{display:none;}
+.tabs{display:flex;gap:8px;margin-bottom:16px;}
+.tab{flex:1;background:none;border:1px solid var(--line);color:var(--fg);padding:10px;border-radius:4px;font-weight:600;cursor:pointer;font-family:inherit;}
+.tab[aria-selected="true"]{background:var(--azzurro);border-color:var(--azzurro);color:#fff;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:18px 20px;margin-bottom:12px;}
+.top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;}
+.stars{color:#D9A441;letter-spacing:2px;}
+.sede{font-size:.72rem;opacity:.6;text-transform:uppercase;letter-spacing:.05em;}
+.card p{margin:10px 0 14px;font-size:.95rem;word-break:break-word;}
+.actions{display:flex;gap:10px;}
+.approve,.reject{color:#fff;border:none;padding:9px 16px;border-radius:4px;font-weight:700;cursor:pointer;flex:1;font-family:inherit;}
+.approve{background:var(--insalate);}
+.reject{background:var(--grill);}
+.empty{opacity:.6;font-size:.9rem;}
+button:focus-visible,input:focus-visible{outline:3px solid var(--azzurro);outline-offset:2px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Pannello recensioni</h1>
+  <div class="sub">Kebab Azzurro: approva, rifiuta o elimina</div>
+
+  <div class="keybox">
+    <input id="key" type="password" placeholder="Chiave admin">
+    <button onclick="enter()">Entra</button>
+  </div>
+
+  <div id="panel">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" id="tab-pending" aria-selected="true" onclick="setTab('pending')">In attesa</button>
+      <button class="tab" role="tab" id="tab-published" aria-selected="false" onclick="setTab('published')">Pubblicate</button>
+    </div>
+    <div id="list"></div>
+  </div>
+</div>
+
+<script>
+const API = "https://kebab-azzurro-api.becchinigiuseppe.workers.dev";
+let tab = 'pending';
+
+function esc(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function getKey(){ return document.getElementById('key').value.trim(); }
+
+function enter(){
+  if(!getKey()){ alert('Inserisci la chiave'); return; }
+  sessionStorage.setItem('adminKey', getKey());
+  document.getElementById('panel').style.display = 'block';
+  load();
+}
+
+function setTab(t){
+  tab = t;
+  document.getElementById('tab-pending').setAttribute('aria-selected', t === 'pending');
+  document.getElementById('tab-published').setAttribute('aria-selected', t === 'published');
+  load();
+}
+
+function card(r, buttons){
+  return `
+    <div class="card" id="rev-${r.id}">
+      <div class="top"><b>${esc(r.name)}</b><span class="sede">${esc(r.sede)}</span></div>
+      <div class="stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
+      <p>${esc(r.text)}</p>
+      <div class="actions">${buttons}</div>
+    </div>`;
+}
+
+async function load(){
+  const list = document.getElementById('list');
+  list.innerHTML = '<p class="empty">Carico…</p>';
+  try{
+    if(tab === 'pending'){
+      const res = await fetch(`${API}/admin/pending?key=${encodeURIComponent(getKey())}`);
+      if(res.status === 401){ list.innerHTML = '<p class="empty">Chiave sbagliata.</p>'; return; }
+      const data = await res.json();
+      if(!data.length){ list.innerHTML = '<p class="empty">Nessuna recensione in attesa.</p>'; return; }
+      list.innerHTML = data.map(r => card(r,
+        `<button class="approve" onclick="act(${r.id},'approve')">Approva</button>
+         <button class="reject" onclick="act(${r.id},'reject')">Rifiuta</button>`)).join('');
+    } else {
+      const res = await fetch(`${API}/reviews`);
+      const data = await res.json();
+      if(!data.length){ list.innerHTML = '<p class="empty">Nessuna recensione pubblicata.</p>'; return; }
+      list.innerHTML = data.map(r => card(r,
+        `<button class="reject" onclick="del(${r.id})">Elimina</button>`)).join('');
+    }
+  }catch(e){ list.innerHTML = '<p class="empty">Errore di connessione.</p>'; }
+}
+
+async function act(id, action){
+  await fetch(`${API}/admin/${action}`, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({id, key:getKey()})
+  });
+  document.getElementById(`rev-${id}`).remove();
+}
+
+async function del(id){
+  if(!confirm('Eliminare questa recensione dal sito? Non si può annullare.')) return;
+  await act(id, 'reject');
+}
+
+if(sessionStorage.getItem('adminKey')){
+  document.getElementById('key').value = sessionStorage.getItem('adminKey');
+  enter();
+}
+</script>
+</body>
+</html>

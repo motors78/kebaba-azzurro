@@ -1,0 +1,8 @@
+name = "kebab-azzurro-api"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "kebab-azzurro-reviews"
+database_id = "0eb01628-04f9-49bf-9ad3-2a991adddd9a"
